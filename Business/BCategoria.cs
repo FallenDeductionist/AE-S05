@@ -31,9 +31,19 @@ namespace Business
 		public bool Insertar(Categoria categoria)
 		{
 			bool result = true;
+			List<Categoria> categorias = null;
+			int IdNextCategoria = 0;
 			try
 			{
 				DCategoria = new DCategoria();
+
+				categorias = new List<Categoria>();
+				categorias = DCategoria.Listar(new Categoria { IdCategoria = categoria.IdCategoria });
+
+				IdNextCategoria = categorias.Max(x => x.IdCategoria) + 1;
+
+				categoria.IdCategoria = IdNextCategoria;
+
 				DCategoria.insertar(categoria);
 			}
 			catch (Exception ex)
