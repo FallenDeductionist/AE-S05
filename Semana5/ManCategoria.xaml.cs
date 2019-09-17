@@ -25,8 +25,8 @@ namespace Semana5
 		public ManCategoria(int Id)
 		{
 			InitializeComponent();
-			ID = ID;
-			if (Id > 0)
+			ID = Id;
+			if (ID > 0)
 			{
 				BCategoria bCategoria = new BCategoria();
 				List<Categoria> categorias = new List<Categoria>();
@@ -37,6 +37,10 @@ namespace Semana5
 					txtNombre.Text = categorias[0].NombreCategoria;
 					txtDescripcion.Text = categorias[0].Descripcion;
 				}
+			}
+			else
+			{
+				btnEliminar.Visibility = Visibility.Hidden;
 			}
 		}
 
@@ -76,6 +80,31 @@ namespace Semana5
 
 		private void BtnCerrar_Click(object sender, RoutedEventArgs e)
 		{
+			Close();
+		}
+
+		private void BtnEliminar_Click(object sender, RoutedEventArgs e)
+		{
+			BCategoria Bcategoria = null;
+			bool result = true;
+			try
+			{
+				Bcategoria = new BCategoria();
+				if (ID > 0)
+				{
+					result = Bcategoria.Eliminar(ID);
+				
+				}
+			}
+			catch (Exception)
+			{
+
+				throw;
+			}
+			finally
+			{
+				Bcategoria = null;
+			}
 			Close();
 		}
 	}
